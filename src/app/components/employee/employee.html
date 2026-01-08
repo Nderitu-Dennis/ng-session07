@@ -1,38 +1,53 @@
- <h1>Employee Form</h1>
+<div class="m-3">
+  <div class="bg-secondary w-75 mx-auto p-2">
+    <div class="h1">Employee Form</div>
+    <label>Name: </label>
+    <input [(ngModel)]="employeeObj.name" type="text" class="m-2" />
+    <br />
 
-<hr/>
+    <label>Email: </label>
+    <input [(ngModel)]="employeeObj.email" type="email" class="m-2" />
+    <br />
 
-<div>
-   <!-- <label>Name:</label>
-   <input [value]="name" (change)="updateName($event.target.value)" type="text" />
-   <input [(ngModel)]="designation"  type="text" />
-    <button>Change</button> -->
-   <!-- <p>{{name}}</p>
-   <p>{{designation}}</p> -->
+    <label>Phone: </label>
+    <input [(ngModel)]="employeeObj.phone" type="tel" class="m-2" />
+    <br />
 
-   <div>
-      <label>Name:  </label>
-      <input [(ngModel)]="employeeObj.name" type="text"/>
-      <br/>
+    <button type="button" class="btn btn-primary m-2" (click)="save()">Submit</button>
+  </div>
 
-      <label>Email: </label>
-      <input [(ngModel)]="employeeObj.email" type="email" />
-      <br/>
+   <div class="bg-secondary w-75 mx-auto mt-3">
+    <div class="h1 m-3">Employee Details</div>
 
-      <label>Phone: </label>
-      <input [(ngModel)]="employeeObj.phone" type="tel" />
-      <br/>
+    <div class="p-3">
+      <table class="table table-bordered border-0 table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+           @for(emp of employees;track emp){
 
-      <button (click)="save()">Submit</button>
-   </div>
+          <tr>
+            <td>{{emp.name}}</td>
+            <td>{{emp.email}}</td>
+            <td>{{emp.phone}}</td>
+            <td><button class="btn btn-outline-danger me-1" (click)="deleteEmployee()">Delete</button>
+            <button class="btn btn-outline-secondary" click=(update)>Update</button>
+         </td>
 
-   <div>
-      <br>
-       <u><h3>Employee Details </h3></u>
-     @for(emp of employees;track emp){
-        <p>{{emp.name}} | {{emp.email}} | {{emp.phone}}</p>
-     }@empty {
-      <p>No employees found.</p>
-     }
-   </div>
+          </tr>
+         } @empty {
+            <tr>
+               <td colspan="3" class="text-center">No employees found</td>
+            </tr>
+         }
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

@@ -13,6 +13,8 @@ export class Employee {
     email:'',
     phone:''
   };
+
+  //initializing-load data and populate memory on component start up
   ngOnInit(): void {
     const empData = localStorage.getItem("employees");
     if(empData){
@@ -22,13 +24,18 @@ export class Employee {
   
   save(){
    
-     this.employees.push({...this.employeeObj});
+     this.employees.push({...this.employeeObj}); //... spread operator, creates a shallow copy of the obj
      localStorage.setItem("employees",JSON.stringify(this.employees));
      alert("Employee details saved successfully!");
+     // clear the fields
      this.employeeObj.name='';
      this.employeeObj.email='';
      this.employeeObj.phone='';
   }
+
+     deleteEmployee(){    
+      console.log('del clicked!')      
+   }
 }
 
 interface EmployeeType {
