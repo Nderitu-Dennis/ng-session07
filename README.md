@@ -37,3 +37,8 @@ import { FormsModule } from '@angular/forms';
 ```
 - After importing `FormsModule`, you can build your form directly within your HTML template using directives like `ngForm` for the form element, `ngModel` for form controls, and `ngSubmit` to handle submission.
 - `ngModel` facilitates **two-way data binding** and requires a `name`attribute. The component's TypeScript file then defines properties for data binding and includes the form submission logic.
+
+## Edit()
+1. First load the data so that form is populated with the employee's current details
+
+2. The app need to know whether to add a new employee or replace an exixting one

@@ -20,15 +20,16 @@
           [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
         />
 
-        @if (name.invalid && (name.dirty || name.touched)){
-        <div class="text-danger small">
-          @if (name.errors?.['required']) {
-          <span>Name is required.</span>
-          } @if (name.errors?.['minlength']) {
-          <span>Minimum 3 characters required.</span>
-          }
+@if (name.invalid && (name.dirty || name.touched)){
+    <div class="text-danger small">    
+      @if (name.errors?.['required']) {
+        <span>Name is required.</span>
+      }
+      @if (name.errors?.['minlength']) {
+        <span>Minimum 3 characters required.</span>
+      }    
         </div>
-        }
+      }
 
         <!-- invalid- true if any validation rule (like required or minlength) is failing.
 touched	- true if the user clicked into the field and then blurred (left) it. This is great for showing errors only after the user has visited the field.
@@ -50,14 +51,15 @@ name.errors:  an object that holds all the current validation failures(which rul
         />
 
         @if (email.invalid && (email.dirty || email.touched)) {
-        <div class="text-danger small">
-          @if (email.errors?.['required']) {
-          <span>Email is required.</span>
-          } @if (email.errors?.['email']) {
-          <span>Please enter a valid email address.</span>
-          }
-        </div>
-        }
+  <div class="text-danger small">    
+    @if (email.errors?.['required']) {
+      <span>Email is required.</span>
+    }
+    @if (email.errors?.['email']) {
+      <span>Please enter a valid email address.</span>
+    }    
+  </div>
+}
       </div>
 
       <div class="mb-3">
@@ -73,20 +75,20 @@ name.errors:  an object that holds all the current validation failures(which rul
           [class.is-invalid]="phone.invalid && (phone.dirty || phone.touched)"
         />
 
-        @if (phone.invalid && (phone.dirty || phone.touched)) {
-        <div class="text-danger small">
-          @if (phone.errors?.['required']) {
-          <span>Phone number is required.</span>
-          } @if (phone.errors?.['pattern']) {
-          <span>Enter a valid 10-digit number.</span>
-          }
-        </div>
-        }
+       @if (phone.invalid && (phone.dirty || phone.touched)) {
+    <div class="text-danger small">
+      @if (phone.errors?.['required']) {
+        <span>Phone number is required.</span>
+      }
+      @if (phone.errors?.['pattern']) {
+        <span>Enter a valid 10-digit number.</span>
+      }
+    </div>
+  }
       </div>
 
-      <button type="submit" class="btn btn-primary w-100" [disabled]="empForm.invalid">
-        Submit Registration
-      </button>
+      <button type="submit" class="btn btn-primary  w-100 m-1 " [disabled]="empForm.invalid">
+     {{ editIndex !== null ? 'Update Employee' : 'Submit' }}      </button>
     </form>
   </div>
 
@@ -111,10 +113,8 @@ name.errors:  an object that holds all the current validation failures(which rul
             <td>{{ emp.email }}</td>
             <td>{{ emp.phone }}</td>
             <td>
-              <button class="btn btn-outline-danger me-1" (click)="deleteEmployee(i)">
-                Delete
-              </button>
-              <button class="btn btn-outline-secondary" (click)="updateEmployee()">Update</button>
+              <button class="btn btn-outline-danger me-1" (click)="deleteEmployee(i)">Delete</button>
+              <button class="btn btn-outline-secondary" (click)="onEdit(emp, i)">Update</button>
             </td>
           </tr>
           } @empty {
