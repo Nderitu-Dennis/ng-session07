@@ -1,20 +1,57 @@
 <div class="m-3">
-  <div class="bg-secondary w-75 mx-auto p-2">
-    <div class="h1">Employee Form</div>
-    <label>Name: </label>
-    <input [(ngModel)]="employeeObj.name" type="text" class="m-2" />
-    <br />
+  <div class="bg-secondary w-100 mx-auto p-2">
 
-    <label>Email: </label>
-    <input [(ngModel)]="employeeObj.email" type="email" class="m-2" />
-    <br />
+    <form #empForm="ngForm" (ngSubmit)="save(empForm)" class="bg-light-subtle w-75 mx-auto p-4 mt-2 border rounded shadow-sm">
+  <h2 class="mb-4">Employee Form</h2>
 
-    <label>Phone: </label>
-    <input [(ngModel)]="employeeObj.phone" type="tel" class="m-2" />
-    <br />
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" name="name" class="form-control"
+           [(ngModel)]="employeeObj.name" 
+           #name="ngModel" 
+           required minlength="3"
+           [class.is-invalid]="name.invalid && (name.dirty || name.touched)">
+    
+    <div class="invalid-feedback" *if="name.errors?.['required']">Name is required.</div>
+    <div class="invalid-feedback" *if="name.errors?.['minlength']">Minimum 3 characters required.</div>
 
-    <button type="button" class="btn btn-primary m-2" (click)="save()">Submit</button>
+    <!-- invalid- true if any validation rule (like required or minlength) is failing.
+touched	- true if the user clicked into the field and then blurred (left) it. This is great for showing errors only after the user has visited the field.
+dirty- true if the user has actually changed the value of the input. If they just clicked in and out without typing, it is touched but not dirty.
+name.errors:  an object that holds all the current validation failures(which rule was broken). -->
   </div>
+
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" name="email" class="form-control"
+           [(ngModel)]="employeeObj.email" 
+           #email="ngModel" 
+           required email
+           [class.is-invalid]="email.invalid && (email.dirty || email.touched)">
+    
+    <div class="invalid-feedback" *if="email.errors?.['required']">Email is required.</div>
+    <div class="invalid-feedback" *if="email.errors?.['email']">Please enter a valid email address.</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Phone</label>
+    <input type="tel" name="phone" class="form-control"
+           [(ngModel)]="employeeObj.phone" 
+           #phone="ngModel" 
+           required pattern="^[0-9]{10}$"
+           [class.is-invalid]="phone.invalid && (phone.dirty || phone.touched)">
+    
+    <div class="invalid-feedback" *if="phone.errors?.['required']">Phone number is required.</div>
+    <div class="invalid-feedback" *if="phone.errors?.['pattern']">Enter a valid 10-digit number.</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100" [disabled]="empForm.invalid">
+    Submit Registration
+  </button>
+</form>
+
+    
+    
 
    <div class="bg-secondary w-75 mx-auto mt-3">
     <div class="h1 m-3">Employee Details</div>

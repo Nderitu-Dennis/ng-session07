@@ -23,3 +23,17 @@ import { FormsModule } from '@angular/forms';
 <input type="text" [(ngModel)]="firstName" />
 ```      
 
+# Forms in Angular
+- 2 types of forms: 
+    1. Template driven forms
+    2. Reactive forms
+
+# Template Driven Forms
+
+- In your main application module `app.module.ts` or a relevant feature module), import `FormsModule` from `@angular/forms` and add it to the imports array. 
+
+```typescript
+import { FormsModule } from '@angular/forms';
+```
+- After importing `FormsModule`, you can build your form directly within your HTML template using directives like `ngForm` for the form element, `ngModel` for form controls, and `ngSubmit` to handle submission.
+- `ngModel` facilitates **two-way data binding** and requires a `name`attribute. The component's TypeScript file then defines properties for data binding and includes the form submission logic.
