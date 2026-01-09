@@ -35,8 +35,20 @@ export class Employee {
   form.resetForm();  
   }
 
-     deleteEmployee(){    
-      console.log('del clicked!')      
+  // HELPER: Just updates the local storage string
+  private updateLocalStorage() {
+    localStorage.setItem("employees", JSON.stringify(this.employees));
+  }
+
+deleteEmployee(index: number){    
+if (confirm("Delete this record ?")) {
+    this.employees.splice(index, 1);
+    // update the local storage after removing/deleting frm the array
+    this.updateLocalStorage();
+ }   }
+
+     updateEmployee(){    
+      console.log('update clicked!')      
    }
 }
 
