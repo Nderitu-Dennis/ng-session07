@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee',
@@ -29,25 +30,38 @@ export class Employee {
   // 1. Load data into the form
   onEdit(item: EmployeeType, index: number) {
     this.editIndex = index;
-    //  use the spread operator {...} so that changes in the form 
+    //  use the spread operator {...} so that changes in the form
     // don't immediately change the table until we hit 'Update'
     this.employeeObj = { ...item };
   }
 
   //refactored save method to handle both new saves and edits
 
- save(form: NgForm) {
+  save(form: NgForm) {
     if (form.invalid) return;
 
     if (this.editIndex !== null) {
       // UPDATE: Replace the item at the specific index
       this.employees[this.editIndex] = { ...this.employeeObj };
       this.editIndex = null; // Reset back to add mode
-      alert('Employee updated successfully!');
+      Swal.fire({
+        title: 'Updated!',
+        icon: 'success',
+        text: 'employee updated successfully!',
+        showConfirmButton: false,
+        timer: 2000,
+      });
     } else {
       // ADD: Push a new item
       this.employees.push({ ...this.employeeObj });
-      alert('Employee saved successfully!');
+      Swal.fire({
+        title: 'Saved!',
+        icon: 'success',
+        text: 'employee saved successfully!',
+                showConfirmButton: false,
+                timer: 2000
+
+      });
     }
 
     this.updateLocalStorage();
@@ -60,13 +74,31 @@ export class Employee {
   }
 
   deleteEmployee(index: number) {
-    if (confirm('Delete this record?')) {
-      this.employees.splice(index, 1);
-      // update the local storage after removing/deleting frm the array
-      this.updateLocalStorage();
-    }
-  }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.employees.splice(index, 1);
+            this.updateLocalStorage();
 
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Employee has been deleted.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    });
+
+    // update the local storage after removing/deleting frm the array
+  }
 }
 
 interface EmployeeType {
