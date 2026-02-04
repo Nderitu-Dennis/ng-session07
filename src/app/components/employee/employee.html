@@ -118,11 +118,13 @@
               <td>{{ emp.name }}</td>
               <td>{{ emp.email }}</td>
               <td>{{ emp.phone }}</td>
-              <td>
-                <button class="btn btn-outline-danger me-1" (click)="deleteEmployee(i)">
-                  Delete
+              <td class="text-center">
+                <button class="btn btn-outline-danger me-1" (click)="deleteEmployee(i)" title="Delete">
+                  <i class="bi bi-trash" ></i>
                 </button>
-                <button class="btn btn-outline-secondary" (click)="onEdit(emp, i)">Update</button>
+                <button class="btn btn-outline-secondary" (click)="onEdit(emp, i)" title="Edit">
+                  <i class="bi bi-pencil" ></i>
+                </button>
               </td>
             </tr>
           } @empty {
